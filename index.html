@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang='ja' class='fix'>
+
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<link rel='icon' href='/icon.svg' type='image/svg+xml'>
+	<link rel='icon' href='/favicon.ico' sizes='any'><!-- 32×32 -->
+	<link rel='apple-touch-icon' href='/apple-touch-icon.png' sizes='180x180'>
+	<link rel='manifest' href='/manifest.json' crossorigin='use-credentials'>
+	<link rel='stylesheet' href='/css/reset.css'>
+	<link rel='stylesheet' href='/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='./index.css'>
+	<title>悲愴三国志Zero1_3</title>
+	<script defer type="module" src='/js/readTs.js'></script>
+</head>
+
+<body class='clampWidth'>
+	<div id='loadingPanel' class='position-absolute z-3'>
+		<div id='loadingJapaneseText'>読み込み中..</div>
+		<div id='loadingEnglishText'>Now Loading..</div>
+		<div>＜長い間表示される場合は＞</div>
+		<div>javascriptが有効でないと思われるので有効にして下さい</div>
+		<div>解決しない場合サイト掲示板で報告をお願いします</div>
+	</div>
+	<main class='position-relative'>
+		<div id='headPanel'>
+			<button id='hideOtherButton'>▲</button>
+			<div id='gameCalendarInfoPanel'></div>
+			<button id='initButton'>初期化</button>
+		</div>
+		<div id='boardPanel' class='position-relative fix'>
+			<div id='mapPanel' class='position-relative'>
+				<div id='logPanel'>
+					<button id='logCaptionPanel'>
+						<div class='horizontal-text'>ログ</div>
+					</button>
+					<div id='logScrollPanel' class='hide z-1'>
+						<div id='logContentPanel'></div>
+					</div>
+				</div>
+				<div id='infoPanel'>
+					<button id='infoCaptionPanel'>
+						<div class='vertical-text'>情報</div>
+					</button>
+					<div id='infoScrollPanel' class='hide z-1'>
+						<div id='infoContentPanel'>
+							<div class='flex-row flex-wrap justify-content-evenly align-items-stretch w-100'>
+								<div id='statePanel'>
+									<div class='align-items-end'>
+										<div class='p-1'>状態:</div>
+										<div class='p-1'>プレイヤー:</div>
+										<div class='h-100 p-1'>領土数:</div>
+										<div class='h-100 p-1'>ゲーム終了:</div>
+									</div>
+									<div class='messagePanel'>
+										<div class='p-1' id='stateInfoPanel'></div>
+										<div class='p-1' id='playerCountryInfoPanel'></div>
+										<div class='p-1' id='playerCountryCellNumInfoPanel'></div>
+										<div class='p-1' id='gameEndCalendarInfoPanel'></div>
+									</div>
+								</div>
+								<div id='operationButtonPanel'>
+									<div class='flex-row p-1'>
+										<input type='checkbox' id='turnLogCheckbox' checked></input>
+										<label for='turnLogCheckbox'>ターン毎のログを下部に出す</label>
+									</div>
+									<div class='flex-row p-1 hide'>
+										<input type='checkbox' id='autoSaveCheckbox'></input>
+										<label for='autoSaveCheckbox'>オートセーブ(試験段階)</label>
+									</div>
+								</div>
+							</div>
+							<div id='exInfoPanel'>
+								<div id='infoOperationsPanel'></div>
+								<div class='m-1'></div>
+								<div id='infoExplainPanel'></div>
+								<div class='m-1'></div>
+								<div id='infoPersonDataPanel'></div>
+								<div class='m-1'></div>
+								<div id='infoChangeLogPanel'></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id='mapScrollPanel' class='fix'>
+					<div id='mapContentPanel' class='position-relative'>
+						<div class='w-100 h-100 position-absolute z-n1 opacity-75 top-0'>
+							<svg width='100%' height='100%' viewBox='-1 -9 91 107' preserveAspectRatio='none' role="img">
+								<polygon fill='#66B' points='-2,-10 -2,100 100,100 100,-10' />
+								<polygon fill='#6B6' points='-2,-10 100,-10 100,39 91,40 90,39 92,27 89,26 90,22 88,19 80,22 79,21 80,16 75,17 72,20 67,21 66,26 68,30 71,30 77,28 81,30 81,31 78,33 76,36 74,40 74,43 78,56 79,66 77,75 74,82 67,88 65,89 60,90 55,90 54,91 54,94 53,94 52,91 52,90 46,90 43,93 43,95 45,100 -2,100' />
+								<polygon fill='#6B6' points='87,81 86,92 83,99 82,98 79,93 80,87 83,81 85,80' />
+								<polygon fill='#6B6' points='51,96 55,95 56,96 54,100 50,100 49,98' />
+								<polygon fill='#6B6' points='98,75 100,72 100,74 99,77' />
+								<polygon fill='#AA5' points='-2,-10 45,-10 50,0 50,10 45,20 30,30 20,35 5,50 -2,85' />
+								<polygon fill='#CC7' points='-2,-10 10,-6 15,-2 25,15 25,25 15,25 -2,20' />
+								<polygon fill='#66B' points='11,70.4 16,71 21,67 25,61 38,60 44,56 47,53 50,53 55,56 58,60 61,61 65,58 68,53 71,50 73,50 78,53 77,50 73,49 70,49 67,53 65,57 61,60 58,59 55,55 50,52 47,52 44,55 38,59 25,60 21,66 16,70 11,70' />
+								<polygon fill='#66B' points='22,30 22.5,24 22.5,11 24.5,9.5 32,10 33,15 33,25 33.5,30.5 50,30.5 62,30 67,27 67,25 62,29 50,29.5 34.5,29.5 33.5,25 33.5,15 33,9.5 24,9 22,10.5 22,24 21.8,30' />
+							</svg>
+						</div>
+						<div class='w-100 h-100 position-relative'>
+							<div class='w-100 h-100 p-1 position-absolute'>
+								<div id='mapRoadPanel'></div>
+							</div>
+							<div class='w-100 h-100 p-1 position-absolute'>
+								<div id='mapCellPanel'></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id='mapExPanel' class='position-absolute'></div>
+			</div>
+			<div id='pieceStockPanel'>
+				<div class='header'>陣営中枢所属</div>
+				<div id='pieceStockScrollPanel'>
+					<div id='pieceStockContentPanel' class='fix'></div>
+				</div>
+			</div>
+			<div id='gameExPanel' class='position-absolute'></div>
+		</div>
+	</main>
+	<div id='operationsPanel'>
+		<button class='caption'>操作説明</button>
+		<div class='hide' id='operationsScrollPanel'>
+			<div id='operationsContentPanel'>
+				<div class='fw-bold'>ゲーム開始について</div>
+				<div>領土ボタンを押すと、その領土を有する国でプレイ開始になります</div>
+				<div>登場する全ての国でプレイ可能です</div>
+				<div class='fw-bold'>人物の配置について</div>
+				<div>陣営中枢所属から自陣営領土へ人物をドラッグで配置移動できます</div>
+				<div>逆に自陣営領土から陣営中枢所属へ配置移動もできます</div>
+				<div>既に人物が配置された自陣営領土へ人物を移動すると配置交換します</div>
+				<div>自陣営の人物のみ移動可能、配置変えに距離の制限はありません</div>
+				<div class='fw-bold'>ターン進行について</div>
+				<div>自領土か隣接領土のボタンをクリックでターンを消費します</div>
+				<div>人物の配置変更はターンを消費しません</div>
+				<div>自領土をクリックでそのターン防衛専念となり、他国から攻められた際に戦闘が有利になります</div>
+				<div>隣接する他国領土をクリックでそのターンその領土へ侵攻となり、勝利するとその領土を得ます</div>
+				<div>ただし休み状態であれば、ターン進行のためにクリックは要りますが、防衛専念も侵攻もしません</div>
+				<div>隣接しない他国領土はクリックすることができません</div>
+				<div class='fw-bold'>レイアウトモードについて</div>
+				<div>fixモードとfitモードがあり、デフォルトはfixモードです</div>
+				<div>fixモードはレイアウトが固定で、画面サイズが小さい場合は全体が縮小されます</div>
+				<div>fitモードはレイアウトが可変で、画面サイズにに合わせながら地図が大きく表示されるようになります</div>
+				<div>左上のボタンで切り替え、「▲」になっていればfixモード、「▼」になっていればfitモードです</div>
+				<div class='fw-bold'>初期化について</div>
+				<div>右上の初期化ボタンで盤面が初期化され、ゲーム開始前の状態に戻ります</div>
+				<div>セーブ機能がないことに留意してください</div>
+			</div>
+		</div>
+	</div>
+	<div id='explainPanel'>
+		<button class='caption'>ルール説明</button>
+		<div class='hide' id='explainScrollPanel'>
+			<div id='explainContentPanel'>
+				<div class='fw-bold'>勝利・敗北について</div>
+				<div class='align-items-start'>
+					<div>勝利条件：プレイヤー勢力領土全制覇(制覇勝利) or 西暦275年春までプレイヤー勢力存続(存続勝利)</div>
+					<div>敗北条件：プレイヤー勢力領土全失陥</div>
+				</div>
+				<div class='m-1'></div>
+				<div class='fw-bold'>陣営の行動について</div>
+				<div>行動順：魏 → 呉 → 蜀漢 → 燕 → 士氏 → 南蛮 → 東夷 → 北匈奴 → 羌 → 氐 → 南匈奴 → 鮮卑 → 烏丸</div>
+				<div>※行動時に既に滅亡していた場合は行動実行できません</div>
+				<div class='m-1'></div>
+				<div class='align-items-start flex-row'>
+					<div class='align-items-start'>
+						<div>[国力回復時]&nbsp;</div>
+						<div>[行動可能時]</div>
+					</div>
+					<div class='align-items-start'>
+						<div>領土をクリック：行動をスキップ</div>
+						<div>隣接敵国領土をクリック：その国に侵攻</div>
+						<div>自国領土をクリック：防衛専念</div>
+					</div>
+				</div>
+				<div class='m-1'></div>
+				<div class='fw-bold'>防衛・侵攻について</div>
+				<div>侵攻を受けた際の防衛は対象の領土に配置された人物があたります</div>
+				<div>侵攻は陣営中枢所属のうちランクが一番高い人物の中でより前に配置されている人物があたります</div>
+				<div>防衛・侵攻で候補となる人物が明示的にいなかった場合、ランク0の無名の人物が担当していると処理されます</div>
+				<div class='m-1'></div>
+				<div class='fw-bold'>戦闘の判定について</div>
+				<div>通常戦闘時の乱数と結果</div>
+				<div class='flex-row align-items-stretch'>
+					<div class='align-items-end'>
+						<div>攻撃側ランク - 防御側ランク：</div>
+						<div class='flex-grow-1'>乱数(0~99)：</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-3</div>
+						<div>0~3</div>
+						<div>4~9</div>
+						<div>10~83</div>
+						<div>84~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-2</div>
+						<div>0~5</div>
+						<div>6~19</div>
+						<div>20~85</div>
+						<div>86~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-1</div>
+						<div>0~7</div>
+						<div>8~29</div>
+						<div>30~87</div>
+						<div>88~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>±0</div>
+						<div>0~9</div>
+						<div>10~39</div>
+						<div>40~89</div>
+						<div>90~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+1</div>
+						<div>0~11</div>
+						<div>12~49</div>
+						<div>50~91</div>
+						<div>92~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+2</div>
+						<div>0~13</div>
+						<div>14~59</div>
+						<div>60~93</div>
+						<div>94~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+3</div>
+						<div>0~15</div>
+						<div>16~69</div>
+						<div>70~95</div>
+						<div>96~99</div>
+					</div>
+					<div style='width:13em;'>
+						<div>&nbsp;</div>
+						<div>… 攻撃側大勝・防御側大敗</div>
+						<div>… 攻撃側辛勝・防御側惜敗</div>
+						<div>… 攻撃側惜敗・防御側辛勝</div>
+						<div>… 攻撃側大敗・防御側大勝</div>
+					</div>
+				</div>
+				<div class='m-1'></div>
+				<div>防御側防衛専念時の乱数と結果</div>
+				<div class='flex-row align-items-stretch'>
+					<div class='align-items-end'>
+						<div>攻撃側ランク - 防御側ランク：</div>
+						<div class='flex-grow-1'>乱数(0~99)：</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-3</div>
+						<div>0~3</div>
+						<div>4~4</div>
+						<div>5~57</div>
+						<div>58~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-2</div>
+						<div>0~5</div>
+						<div>6~9</div>
+						<div>10~61</div>
+						<div>62~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>-1</div>
+						<div>0~7</div>
+						<div>8~14</div>
+						<div>15~65</div>
+						<div>66~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>±0</div>
+						<div>0~9</div>
+						<div>10~19</div>
+						<div>20~69</div>
+						<div>70~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+1</div>
+						<div>0~11</div>
+						<div>12~24</div>
+						<div>25~73</div>
+						<div>74~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+2</div>
+						<div>0~13</div>
+						<div>14~29</div>
+						<div>30~77</div>
+						<div>78~99</div>
+					</div>
+					<div style='width:4em;'>
+						<div>+3</div>
+						<div>0~15</div>
+						<div>16~34</div>
+						<div>35~81</div>
+						<div>82~99</div>
+					</div>
+					<div style='width:13em;'>
+						<div>&nbsp;</div>
+						<div>… 攻撃側大勝・防御側大敗</div>
+						<div>… 攻撃側辛勝・防御側惜敗</div>
+						<div>… 攻撃側惜敗・防御側辛勝</div>
+						<div>… 攻撃側大敗・防御側大勝</div>
+					</div>
+				</div>
+				<div class='m-1'></div>
+				<div class='align-items-start'>
+					<div>攻撃側大勝・防御側大敗 … 防御側陥落、防御側将確率30%で戦死</div>
+					<div>攻撃側辛勝・防御側惜敗 … 防御側陥落、攻撃側次ターン国力回復(休み)</div>
+					<div>攻撃側惜敗・防御側辛勝 … 防御側撃退成功、攻撃側次ターン国力回復(休み)</div>
+					<div>攻撃側大敗・防御側大勝 … 防御側撃退成功、攻撃側次3ターン国力回復(休み)、攻撃側将確率30%で戦死</div>
+				</div>
+				<div class='m-1'></div>
+				<div class='fw-bold'>休み状態（国力回復中状態）について</div>
+				<div>休み状態は出兵して国力を減らした状態を表現しています</div>
+				<div>「休み」の表示が出て、そのターン数行動ができません</div>
+				<div>攻撃もできませんが防衛専念状態にもなりません</div>
+				<div class='m-1'></div>
+				<div class='fw-bold'>人物の登場期間について</div>
+				<div>人物に設定された登場年の秋ターン開始時に設定された陣営に加わります</div>
+				<div>人物に設定された没年以降の秋ターン開始時に生存していたら以下の確率で死去で陣営から抜けます</div>
+				<div>没年の年の秋:10%</div>
+				<div>没年の1年後秋:19%</div>
+				<div>没年の2年後秋:28%</div>
+				<div>没年の3年後秋:37%</div>
+				<div>没年の4年後秋:46%</div>
+				<div>没年の5年後秋:55%</div>
+				<div>没年の6年後秋:64%</div>
+				<div>没年の7年後秋:73%</div>
+				<div>没年の8年後秋:82%</div>
+				<div>没年の9年後秋:91%</div>
+				<div>没年の10年後秋:100%</div>
+				<div>※没年前にも防衛失敗や攻撃失敗で戦死することがあります</div>
+			</div>
+		</div>
+	</div>
+	<div id='personDataPanel'>
+		<button class='caption'>人物データ</button>
+		<div class='hide' id='personDataScrollPanel'>
+			<div id='personDataContentPanel'></div>
+		</div>
+	</div>
+	<div id='changeLogPanel'>
+		<button class='caption'>更新履歴</button>
+		<div class='hide' id='changeLogScrollPanel'>
+			<div id='changeLogContentPanel'>
+				<div>2023/08/20 公開</div>
+				<div>2023/11/28 バグ修正&説明追記</div>
+				<div id='changeLogExplainPanel'>
+					<div>・自領土をクリックする際に人物の部分だと人物の移動中判定になって解除されずターン終了する不具合修正</div>
+					<div>・生存勝利でゲーム終了しても操作ができる不具合修正</div>
+					<div>・領土の防衛人物との配置交換ができなかった不具合修正</div>
+					<div>・ターン進行が完了する前に次ターンの指示ができた不具合修正</div>
+					<div>・説明部分を追記&更新</div>
+				</div>
+				<div>2023/11/30 スマホでのプレイも念頭に改善</div>
+				<div id='changeLogExplainPanel'>
+					<div>・スマホでプレイする際、人物のドラッグの時に画面スクロールしないようにした</div>
+				</div>
+				<div>2023/12/06 説明追記&レイアウト修正</div>
+				<div id='changeLogExplainPanel'>
+					<div>・説明部分を追記&更新</div>
+					<div>・レイアウト微修正</div>
+				</div>
+				<div>2023/12/07 レイアウト微修正</div>
+				<div>2023/12/10 バグ修正&レイアウト微修正</div>
+				<div id='changeLogExplainPanel'>
+					<div>・ターン進行中に人物の駒を動かせてしまう不具合を修正</div>
+				</div>
+				<div>2023/12/14 機能拡張</div>
+				<div id='changeLogExplainPanel'>
+					<div>・ターン毎のログを出すようにした</div>
+					<div>・ゲーム終了時のログを出すようにした</div>
+					<div>・ゲーム終了後にゲームコメントを投稿できるようにした</div>
+				</div>
+				<div>2023/12/16 バグ修正</div>
+				<div id='changeLogExplainPanel'>
+					<div>・防衛専念の際にクリックした領土が自陣営行動時に陥落していた場合、そこに攻撃していたのを攻撃しないよう修正</div>
+				</div>
+				<div>2024/07/22 ver1.0 バグ修正</div>
+				<div id='changeLogExplainPanel'>
+					<div>・パソコンでプレイ時に人物の駒を動かせなかった(実質プレイできなかった)重大なバグがあったのを修正</div>
+					<div>・内部レイアウト系統など変更</div>
+				</div>
+				<div>2024/08/11 ver1.1 レイアウト修正&人物追加</div>
+				<div id='changeLogExplainPanel'>
+					<div>・レイアウトを改修した</div>
+					<div>・内部構造を整え、読み込みシステムを変更した(ただし読み込みに時間がかかるようになった)</div>
+					<div>・ページ読み込み中の表示を付けた</div>
+					<div>・呉に「鍾離牧」、羌に「治無戴」、氐に「千万」、東夷に「東夷長」を追加した</div>
+					<div>・人物の没年での死去の判定を確率を絡めるように変更した(没年以降も生存する場合が出るようになった)</div>
+				</div>
+				<div>2024/08/13 ver1.2 キャラによる説明追加&人物添削</div>
+				<div id='changeLogExplainPanel'>
+					<div>・ゲーム開始時にキャラによる説明を追加</div>
+					<div>・動かせる人物から「杜畿」「韓当」「簡雍」を削り、「胡烈」「陶璜」「廖化」を追加した</div>
+					<div>・「姜維」の蜀漢陣営への登場時期を変更した(初期状態で登場→227年に登場)</div>
+				</div>
+				<div>2024/10/29 ver1.3 ゲーム終了時のログを微修正</div>
+				<div id='changeLogExplainPanel'>
+					<div>・アップデートしているうちにゲーム終了時のログの情報が減っていたのを修正</div>
+				</div>
+				<div>2025/01/02 ver1.4 レイアウト崩れ対処&説明追記</div>
+				<div id='changeLogExplainPanel'>
+					<div>・chromium系ブラウザの仕様変更によりdetailsのレイアウトが崩れたので対処</div>
+					<div>・「ログ」「情報」のボタンのサイズを少し大きく修正</div>
+					<div>・説明に休み状態についての部分を追記</div>
+				</div>
+				<div>2025/01/03 ver1.5 レイアウト崩れ対処&説明追記</div>
+				<div id='changeLogExplainPanel'>
+					<div>・スマホで全画面表示にするとレイアウトが崩れていたので修正</div>
+					<div>・説明に操作方法を追記</div>
+				</div>
+				<div>2025/11/09 ver1.6 CPUの思考改善</div>
+				<div id='changeLogExplainPanel'>
+					<div>・CPUの思考ルーチンを改善、前線を減らそうとする傾向に</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,690 @@
+@keyframes toTransparent {
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (2.4 <=aspect-ratio) {
+    html.fit {
+        font-size: 1.35cqw;
+    }
+
+    #pieceStockContentPanel.fit {
+        width: 21.1em;
+    }
+}
+
+@media (1.8 <=aspect-ratio < 2.4) {
+    html.fit {
+        font-size: 1.5cqw;
+    }
+
+    #pieceStockContentPanel.fit {
+        width: 15.8em;
+    }
+}
+
+@media (1.4 <=aspect-ratio < 1.8) {
+    html.fit {
+        font-size: 1.6cqw;
+    }
+
+    #pieceStockContentPanel.fit {
+        width: 10.5em;
+    }
+}
+
+@media (1.3 <=aspect-ratio < 1.4) {
+    html.fit {
+        font-size: 2.25cqh;
+    }
+
+    #pieceStockContentPanel.fit {
+        width: 10.5em;
+    }
+}
+
+@media (0.95<=aspect-ratio < 1.3) {
+    html.fit {
+        font-size: 1.95cqw;
+    }
+
+    #pieceStockContentPanel.fit {
+        height: 7.7em;
+    }
+
+    #boardPanel.fit {
+        flex-direction: column;
+    }
+}
+
+@media (0.8 <=aspect-ratio < 0.95) {
+    html.fit {
+        font-size: 1.85cqh;
+    }
+
+    #pieceStockContentPanel.fit {
+        height: 7.7em;
+    }
+
+    #boardPanel.fit {
+        flex-direction: column;
+    }
+}
+
+@media (0.47 <=aspect-ratio < 0.8) {
+    html.fit {
+        font-size: 1.75cqh;
+    }
+
+    #pieceStockContentPanel.fit {
+        height: 11.3em;
+    }
+
+    #boardPanel.fit {
+        flex-direction: column;
+    }
+}
+
+@media (aspect-ratio < 0.47) {
+    html.fit {
+        font-size: 1.65cqh;
+    }
+
+    #pieceStockContentPanel.fit {
+        height: 15em;
+    }
+
+    #boardPanel.fit {
+        flex-direction: column;
+    }
+}
+
+html.fix {
+    font-size: min(1.6cqw, 16px);
+}
+
+#pieceStockContentPanel.fix {
+    width: 10.5em;
+}
+
+:not(text) {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+html {
+    background-color: #EFEE;
+    display: flex;
+    justify-content: center;
+}
+
+html.fit {
+    width: 100svw;
+    height: 100svh;
+}
+
+body {
+    container-type: inline-size;
+    font-family: 'Hiragino Maru Gothic ProN', 'Yu Gothic Medium', 'Hiragino Sans', YuGothic, sans-serif;
+    background-color: transparent;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 1.25;
+}
+
+main {
+    width: 100cqw;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+div,
+label,
+button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border: none;
+    padding: 0;
+    color: #000;
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+input[type='checkbox'] {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.clampWidth {
+    width: 1000px;
+}
+
+.emptyLine {
+    height: 1em;
+}
+
+.caption,
+.header {
+    width: 100%;
+    text-align: center;
+    background: #0004;
+}
+
+.caption {
+    font-size: 1.25em;
+    min-height: 1.6em;
+}
+
+.hide {
+    display: none;
+}
+
+#operationsPanel,
+#explainPanel,
+#personDataPanel,
+#changeLogPanel,
+#infoOperationsPanel,
+#infoExplainPanel,
+#infoPersonDataPanel,
+#infoChangeLogPanel,
+#pieceStockPanel {
+    box-shadow: 0 0 0 0.1em inset #0004;
+    align-items: stretch;
+}
+
+#operationsPanel,
+#explainPanel,
+#personDataPanel,
+#changeLogPanel,
+#infoOperationsPanel,
+#infoExplainPanel,
+#infoPersonDataPanel,
+#infoChangeLogPanel {
+    width: 100%;
+}
+
+#infoOperationsPanel,
+#infoExplainPanel,
+#infoPersonDataPanel,
+#infoChangeLogPanel {
+    min-height: 3.1em;
+}
+
+#infoOperationsPanel .caption,
+#infoExplainPanel .caption,
+#infoPersonDataPanel .caption,
+#infoChangeLogPanel .caption {
+    min-height: 2.5em;
+}
+
+#operationsScrollPanel,
+#explainScrollPanel,
+#personDataScrollPanel,
+#changeLogScrollPanel,
+#pieceStockScrollPanel {
+    text-wrap: nowrap;
+    overflow: auto;
+    align-items: start;
+    justify-content: start;
+}
+
+#operationsScrollPanel,
+#explainScrollPanel,
+#personDataScrollPanel,
+#changeLogScrollPanel {
+    padding: 0.1em 0 0.1em;
+    margin: 0 0.1em 0.1em;
+    background: #FFF8;
+}
+
+#pieceStockScrollPanel {
+    background: #FFF;
+    height: calc(100% - 1.25em);
+    margin: 0 0.1em;
+    overflow-x: hidden;
+}
+
+#operationsContentPanel,
+#explainContentPanel,
+#personDataContentPanel,
+#changeLogContentPanel {
+    min-width: 100%;
+}
+
+#pieceStockContentPanel {
+    align-items: start;
+    justify-content: start;
+    align-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 0.3em;
+    column-gap: 0.3em;
+    padding: 0.2em 0.1em 0;
+    user-select: none;
+    height: 100%;
+}
+
+#changeLogContentPanel {
+    align-items: start;
+    padding-left: 1em;
+}
+
+#changeLogExplainPanel {
+    align-items: start;
+    padding-left: 1em;
+}
+
+#headPanel,
+.messagePanel,
+#operationButtonPanel {
+    justify-content: start;
+    align-items: start;
+}
+
+#headPanel {
+    flex-direction: row;
+    align-items: stretch;
+    height: 2.75em;
+}
+
+#statePanel,
+#operationButtonPanel {
+    font-size: 1.25em;
+    line-height: 1;
+}
+
+#statePanel {
+    width: 30em;
+    flex-direction: row;
+    justify-content: start;
+    text-wrap: nowrap;
+}
+
+#operationButtonPanel {
+    width: 15em;
+    justify-content: space-evenly;
+}
+
+.idlingCellButton {
+    box-shadow: 0 0 0.5em 0.2em inset #0008;
+    color: #000;
+}
+
+.processingCellButton {
+    box-shadow: 0 0 0.5em 0.1em inset #0004;
+    color: #0008;
+}
+
+.cellNameLabel {
+    color: #0008;
+}
+
+.defenceLabel {
+    color: #E66;
+}
+
+#initButton,
+#hideOtherButton,
+#gameCalendarInfoPanel {
+    font-size: 1.5em;
+}
+
+#initButton,
+#hideOtherButton {
+    min-width: 30%;
+    border-radius: 0.2em;
+    box-shadow: 0 0 0 0.05em inset #000A;
+}
+
+#gameCalendarInfoPanel {
+    width: 40%;
+    background-color: #FFF;
+    box-shadow: 0 0 0 0.1em inset #000A;
+}
+
+#boardPanel {
+    container-type: inline-size;
+    flex-direction: row;
+    justify-content: start;
+    align-items: stretch;
+    width: 100%;
+}
+
+#boardPanel.fix {
+    height: calc(100% - 2.75em);
+}
+
+#boardPanel.fit {
+    height: calc(100cqh - 2.75em);
+}
+
+#gameExPanel,
+#mapExPanel {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    line-height: 1;
+}
+
+#gameCommentSendBackPanel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #0004;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+#gameCommentSendPanel {
+    justify-content: stretch;
+    width: 80%;
+    height: 100%;
+    padding: 0.5em;
+    background-color: #FFFA;
+    box-shadow: 0 0 0 0.2em inset #0004;
+}
+
+#gameCommentSendTitle {
+    font-size: 1.5em;
+}
+
+#gameCommentSendLog {
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    padding: 0.1em;
+    resize: none;
+    background-color: #FFFA;
+    overflow-y: scroll;
+}
+
+#gameCommentSendLog {
+    flex-grow: 1;
+}
+
+#turnLogBackPanel {
+    align-items: start;
+    justify-content: end;
+    width: 100%;
+    height: 100%;
+}
+
+#turnLogPanel {
+    position: absolute;
+    align-items: start;
+    width: 70%;
+    margin: 0 10%;
+    background-color: #FFF6;
+    animation: toTransparent 1s 2s forwards;
+}
+
+#turnLog {
+    align-items: start;
+}
+
+.gameCommentButton {
+    width: 48%;
+    height: 4em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 0 0.05em inset #000A;
+}
+
+#mapPanel {
+    line-height: 0;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    min-height: 0;
+}
+
+#mapScrollPanel {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#mapScrollPanel.fit {
+    overflow: scroll;
+}
+
+#mapContentPanel {
+    align-items: end;
+    min-height: 100%;
+    aspect-ratio: 1.2;
+    padding-top: 2.1em;
+    padding-left: 2.1em;
+    box-shadow: 0 0 0 0.2em inset #0004;
+}
+
+#mapRoadPanel,
+#mapCellPanel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#logPanel {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 5em);
+    max-height: calc(100% - 1em);
+    line-height: 1.2;
+    z-index: 1;
+}
+
+#logCaptionPanel {
+    background: #AAAA;
+    width: 100%;
+    padding: 0.7em;
+    color: black;
+}
+
+#logScrollPanel {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background: #FFFA;
+    box-shadow: 0 0 0 0.1em inset #0008;
+}
+
+#logContentPanel {
+    align-items: start;
+    justify-content: start;
+    flex-grow: 1;
+    width: 100%;
+    height: 40em;
+    max-height: 100%;
+    padding: 0.12em;
+    min-height: 0;
+}
+
+#infoPanel {
+    position: absolute;
+    left: 0;
+    max-width: calc(100% - 1em);
+    height: calc(100% - 5em);
+    line-height: 1.2;
+    z-index: 1;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#infoCaptionPanel {
+    background: #AAAA;
+    height: 100%;
+    padding: 0.7em;
+    color: black;
+}
+
+#infoScrollPanel {
+    width: 46em;
+    height: 100%;
+    overflow-x: auto;
+}
+
+#infoContentPanel {
+    background: #FFFA;
+    box-shadow: 0 0 0 0.1em inset #0008;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0.12em;
+    min-height: 0;
+    font-size: 0.8em;
+    align-items: start;
+    justify-content: start;
+}
+
+#loadingPanel {
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    background-color: #CDE;
+    font-size: 2em;
+}
+
+
+#loadingJapaneseText,
+#loadingEnglishText {
+    font-weight: bold;
+    line-height: 1.5em;
+}
+
+#loadingJapaneseText {
+    font-size: 1.5em;
+}
+
+#loadingEnglishText {
+    font-size: 1em;
+}
+
+.魏 {
+    background-color: #BBF;
+}
+
+.呉 {
+    background-color: #FBB;
+}
+
+.蜀漢 {
+    background-color: #BFB;
+}
+
+.燕 {
+    background-color: #FBF;
+}
+
+.士氏 {
+    background-color: #BFF;
+}
+
+.南蛮 {
+    background-color: #CD7;
+}
+
+.東夷 {
+    background-color: #AE8;
+}
+
+.北匈奴 {
+    background-color: #DC7;
+}
+
+.羌 {
+    background-color: #BB7;
+}
+
+.氐 {
+    background-color: #EC6;
+}
+
+.南匈奴 {
+    background-color: #CD9;
+}
+
+.鮮卑 {
+    background-color: #AD9;
+}
+
+.烏丸 {
+    background-color: #CE6;
+}
+
+.cellButton {
+    border-radius: 1em;
+}
+
+.road {
+    height: 4%;
+    background: #3425;
+    margin: -2% 0;
+}
+
+.personPiecePanel,
+.buttonPiecePanel {
+    width: 5em;
+    aspect-ratio: 1.5;
+}
+
+.piecePanelRank {
+    font-size: 1.8em;
+    line-height: 0.85;
+}
+
+.piecePanelName {
+    font-size: 2em;
+    line-height: 0.8;
+    white-space: nowrap;
+}
+
+.piecePanelName.length3 {
+    transform: scale(0.85, 1);
+}
+
+.buttonPiecePanel {
+    box-shadow: 0 0 0.05em 0.2em #0004;
+}
+
+.buttonText {
+    text-wrap: nowrap;
+    flex-flow: row;
+    height: 0.9em;
+}
+
+.personInfoCell {
+    box-shadow: 0 0 0 0.05em inset #AAA;
+    white-space: nowrap;
+    padding: 0.1em 0.05em 0;
+    box-sizing: border-box;
+    line-height: 0.9;
+}
+
+#exInfoPanel {
+    justify-content: start;
+    width: 100%;
+    min-height: 0;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+}
+
+.horizontal-text {
+    writing-mode: horizontal-tb;
+}
